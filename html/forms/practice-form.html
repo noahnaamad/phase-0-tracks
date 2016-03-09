@@ -4,27 +4,36 @@
   <title>Practice Form</title>
 </head>
 <body>
-    <textarea> Additional Comments
-    </textarea>
   <div>
     <label>Cat's name</label>
     <input type="text" name="catsname">
-  </div>
-  <div>
+    
     <label>Date of Adoption</label>
     <input type="date" name="DateofAdoption">
+    
+    <label>Owner Email</label>
+    <input type="email" name="owneremail"
   </div>
+  
   <div>
     <form action="success.html" method="post">
-      <select name="type of cat">
-        <option value="cat">Long hair</option>
-        <option value="cat">Siamese</option>
-        <option value="cat">Russian blue</option
-      </select>
+      <fieldset>
+      <div>
+        <select name="type of cat">
+          <option value="cat">Long hair</option>
+          <option value="cat">Siamese</option>
+          <option value="cat">Russian blue</option
+        </select>
+      </div>
+      </fieldset>
+      <fieldset>
+        <button type="submit">Submit</button>
+      <div>
+       <textarea placeholder = "Additional Comments"></textarea>
+      </div>
+      </fieldset>
     </form>
   </div>
-  <div>
-    <button type="Submit">Submit</button>
-  </div>
+  
 </body>
 </html>
