@@ -1,0 +1,44 @@
+<form name="adventure" action="https://httpbin.org/post" method="post">
+  <fieldset>
+    <div>
+    </div>
+
+    <div>
+      <label>Your Awesome Email:</label>
+      <input type="email" name="email">
+    </div>
+
+    <div>
+      <label>Your Awesome Password:</label>
+      <input type="password" name="password">
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <div>
+      <label>Your Awesome Adventure name:</label>
+      <input type="text" name="adv-name" placeholder="Name this adventure">
+    </div>
+
+    <div>
+      <label>Type of bicycle:</label>
+      <select name="bike">
+        <option value="road">Nice Flat Road</option>
+        <option value="road">Big Old Mountain</option>
+        <option value="road">Hybrid or Something</option>
+      </select>
+    </div>
+
+    <div>    
+      <label>Choose a date:</label>
+      <input type="date" name="date">
+    </div>
+
+    <div>
+      <input type="checkbox" name="cb-agree" value="agree">
+      I am super duper prepared to lead this adventure!!!
+    </div>
+  </fieldset>
+  
+  <button type="submit">Save this adventure</button>
+</form>
