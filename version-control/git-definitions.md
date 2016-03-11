@@ -2,18 +2,14 @@
 
 **Instructions:** Define each of the following Git concepts.
 
-- **What is version control?  Why is it useful?**
+* What is version control?  Why is it useful? 
+Version control allows people to merge different versions of a document into one document, and to see the history of revisions, including when the change was made and who made the change.  This is useful because it allows multiple people to work in tandem on the same project, and allows us to quickly roll back mistakes.
 
-Version control is the system of managing changes to software projects. These changes can be bug fixes, brand new features, scrapped features, or anything in between. It is useful because it grants developers the power of time travel, in that previously saved versions of the project can be accessed as necessary.
+* What is a branch and why would you use one?
+A branch is essentially when you make a copy of the original code with the intention of editing it, and then later assimilating it into the original code (the master branch). Branches confer multiple benefits, such as: allowing multiple people to work on the same project without anyone stepping on anyone's toes, having more information about who made which edits, the ability to reject the code in a branch without affecting the master branch at all, and "going back in time" to before the code from the branch was merged into the master branch (or into any other branch).
 
-- **What is a branch and why would you use one?** 
+* What is a commit? What makes a good commit message?
+A commit is when you save the changes you made to a document to whatever branch you're working on.  A good commit message succinctly summarizes the specific changes you made to the document.
 
-In version control, a branch refers to the current part of the overall software project you are currently working on. Each branch ultimately stems from the master branch, and it is most common for developers to only be working on separate branches, which will eventually get merged with the master branch if approved. Branching allows for scalability, and multiple team members can work on different features/branches at the same time.
-
-- **What is a commit? What makes a good commit message?**
-
-Simply, a commit is just a version of a git repository that is saved. This is one of the main tenants of version control, as accessing different committed versions is often useful for teams to manage software projects. Solid commit messages follow the two C's - concise and consistent. You're writing this message the the future you or your team members, so you want them to explain what changes you made in a short & effective manner.
-
-- **What is a merge conflict?**
-
-Merging branches is a way to integrate one branch into the branch you are currently working in. More often than not, Git will do its best and be able to figure out how to merge these branches without any issues. Occassionally there will be issues that Git can not decide how to solve on its own, and merge conflicts arise. From my understanding this most often happens from a lack of organization - two engineers edit the same line in a file differently, or one deletes the file entirely while the other only edits code within it. In these or similar cases, running `git status` will spit out that you must fix conflicts and show where the conflict occurs. Once the conflict is discussed and fixed, committing should finalize it.
+* What is a merge conflict?
+A merge conflict is occurs when git has multiple "options" in how it can merge different branches into the different branch, and does not know which option to choose.  For example, if one line of code is changed in different ways in different branches, git will not know which version of that line to keep.
