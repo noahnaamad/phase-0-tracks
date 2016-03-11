@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Practice Form</title>
+</head>
+<body>
+  <div>
+    <label>Cat's name</label>
+    <input type="text" name="catsname">
+    
+    <label>Date of Adoption</label>
+    <input type="date" name="DateofAdoption">
+    
+    <label>Owner Email</label>
+    <input type="email" name="owneremail">
+  </div>
+  
+  
+  <div>
+    <form action="success.html" method="post">
+      <fieldset>
+      <div>
+        <label>Breed of Cat</label>
+        <select name="type of cat">
+          <option value="cat">Long hair</option>
+          <option value="cat">Siamese</option>
+          <option value="cat">Russian blue</option>
+          <option value ="cat">Other</option>
+        </select>
+      </div>
+      </fieldset>
+      <fieldset>
+        <div>
+         <textarea placeholder = "Additional Comments"></textarea>
+        </div>
+        <div>
+          <button type="submit">Submit</button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  
+</body>
+</html>
