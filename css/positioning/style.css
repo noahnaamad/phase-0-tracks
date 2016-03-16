@@ -1,4 +1,4 @@
 .octo{
-  margin-right: auto;
-  margin-left: auto;
+  margin: auto;
+  outline: 1px solid red;
 }
