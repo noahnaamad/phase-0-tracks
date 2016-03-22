@@ -1,8 +1,7 @@
 body{
-    background-color: hotpink;
+    background-color: #00cc99;
     margin-left: 50px;
     margin-right: 50px;
-    font-family: Helvetica;
 }
 
 #reflect{
@@ -12,10 +11,11 @@ body{
 }
 
 .sometext{
-    border:1px dotted black;
+    border-bottom: 1px dotted black;
     margin-bottom: 15px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-family: Helvetica;
 }
 
 #firstimage{
@@ -41,4 +41,35 @@ h1{
 
 #overimage{
     background-image: url("https://upload.wikimedia.org/wikipedia/commons/d/d8/Hemp-600x600.jpg");
+}
+
+a:link{
+    color:blue;
+}
+
+a:visited{
+    color:hotpink;
+}
+
+#table{
+    border: 1px solid grey;
+}
+
+@media screen and (max-width: 600px) {
+body{
+    background-color:LightBlue;
+    margin-left:0px;
+    margin-right:0px;
+    }
+
+#otherimage{
+    margin-right: 0px;
+    margin-left: 0px;
+    width:100%;
+    }
+    
+.sometext{
+    padding-left: 0px;
+    padding-right: 0px;
+    }
 }
