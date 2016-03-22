@@ -1,3 +1,20 @@
+.column-1{
+  width: 48%;
+  float: left;
+}
+
+
+.column-2{
+  width: 48%;
+  float: right;
+}
+
+footer{
+  display: block;
+  clear: both;
+  text-align: center;
+}
+
 body{
-  background-color: hotpink;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/b/b3/P%C3%A4ij%C3%A4nne_and_p%C3%A4ij%C3%A4tsalo.jpg");
 }
