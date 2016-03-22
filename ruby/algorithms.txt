@@ -1,0 +1,61 @@
+HOW TO USE AN ELEVATOR
+x= (floor you want to go to) - (floor you're on)
+  if x = 0, you're done!
+  else face elevator and find buttons next to it
+    if x > 0
+      click top button
+    else
+      click bottom button
+    end
+  end
+wait for elevator doors to open
+go inside elevator
+turn 180 degrees
+next to the door find button panel
+  if you want to go to 1st floor or ground floor
+    search for button with star OR button that says G OR button that says L OR button that says 1
+    click that button
+  else
+    find button that corresponds to the floor you want to go to
+    click that button
+  end
+while elevator doors are closed OR (current floor) != (floor you want to go to)
+  wait
+else
+  exit
+end
+done!!
+
+
+HOW TO MAKE A BOWL OF CEREAL
+locate bowl and place it on a steady surface
+while desired amount of cereal is more than would fit in bowl, replace with larger bowl
+locate cereal box
+open cereal box
+pour desired amount into bowl
+if cereal box very close to empty
+  pour all cereal into bowl
+  if cereal box is empty
+    discard cereal box
+  end
+end
+locate fridge
+open fridge door
+locate milk inside the fridge and take it out
+hold milk carton in one hand an use the other hand to open the carton
+pour desired amount of milk
+if milk carton very close to empty
+  pour all milk into bowl
+  if milk carton is empty
+    discard milk carton
+  end
+end
+open silverware drawer
+if drawer contains no spoons
+  locate spoon in sink
+  clean the spoon
+else
+  choose spoon from drawer
+end
+place spoon in bowl containing cereal and milk
+done!!
