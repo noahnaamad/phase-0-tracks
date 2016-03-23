@@ -18,7 +18,7 @@ else
     adoption = false
 end
 
-age = nil
+age=nil
 
 puts "Estimated Age: "
 age = gets.chomp
