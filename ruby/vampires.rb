@@ -1,4 +1,4 @@
-def interview()
+def interview
 	print "How many people are you interviewing today?"
 	num = gets.chomp
 	num = num.to_i
@@ -28,16 +28,15 @@ I reversed the orders of if/elsifs as a design decision, because it made no sens
 =end 
 
 		if ((name == "drake cula") || (name == "tu fang"))
-		print "Definitely a vampire"
-		elsif
-			((age1 != age2)&&(age1 != age3))&&((garlic == "n") && (insurance == "n"))
-			print "Almost certainly a vampire"
+			puts "#{name} is definitely a vampire"
+		elsif ((age1 != age2)&&(age1 != age3))&&((garlic == "n") && (insurance == "n"))
+			puts "#{name} is almost certainly a vampire"
 		elsif (((age1 != age2)&&(age1 != age3))&&((garlic == "n") ^ (insurance == "n")))
-			print "Probably a vampire"
+			puts "#{name} is probably a vampire"
 		elsif (((age1 == age2)||(age1 == age3))&&((garlic == "y")|| (insurance == "y")))
-			print "Probably not a vampire"
+			puts "#{name} is probably not a vampire"
 		else
-			print "Results Inconclusive"
+			puts "Results Inconclusive"
 		end
 
 	end
