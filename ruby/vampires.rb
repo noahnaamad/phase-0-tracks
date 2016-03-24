@@ -15,3 +15,19 @@ garlic.downcase!
 print "Would you like to enroll in the company’s health insurance? (y/n)"
 insurance = gets.chomp
 insurance.downcase!
+
+def isavamp(name)
+	case name
+	when ((age1 == age2)||(age1 == age3))&&((garlic == y)|| (insurance == y))
+		print "Probably not a vampire"
+	when 
+		((age1 != age2)&&(age1 != age3))&&((garlic == n)|| (insurance == n))
+		print "Probably a vampire"
+	when 
+		((age1 != age2)&&(age1 != age3))&&((garlic == n) && (insurance == n))
+		print "Almost certainly a vampire"
+	when ((name == "Drake Cula") || (name == "Tu Fang"))
+	else
+		print "Results Inconclusive"
+	end
+end
