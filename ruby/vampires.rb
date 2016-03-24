@@ -1,9 +1,9 @@
 print "What is your name?"
 name = gets.chomp
-name.capitalize!
+name.downcase!
 print "How old are you?"
 age1 = gets.chomp
-age1 = age.to_i
+age1 = age1.to_i
 print "What year were you born?"
 year = gets.chomp
 year = year.to_i
@@ -16,18 +16,17 @@ print "Would you like to enroll in the company’s health insurance? (y/n)"
 insurance = gets.chomp
 insurance.downcase!
 
-def isavamp(name)
-	case name
-	when ((age1 == age2)||(age1 == age3))&&((garlic == y)|| (insurance == y))
+
+if (((age1 == age2)||(age1 == age3))&&((garlic == "y")|| (insurance == "y")))
 		print "Probably not a vampire"
-	when 
-		((age1 != age2)&&(age1 != age3))&&((garlic == n)|| (insurance == n))
+
+elsif (((age1 != age2)&&(age1 != age3))&&((garlic == "n")|| (insurance == "n")))&&(insurance != garlic)
 		print "Probably a vampire"
-	when 
-		((age1 != age2)&&(age1 != age3))&&((garlic == n) && (insurance == n))
+elsif
+		((age1 != age2)&&(age1 != age3))&&((garlic == "n") && (insurance == "n"))
 		print "Almost certainly a vampire"
-	when ((name == "Drake Cula") || (name == "Tu Fang"))
-	else
+elsif ((name == "drake cula") || (name == "tu fang"))
+		print "Definitely a vampire"
+else
 		print "Results Inconclusive"
-	end
 end
