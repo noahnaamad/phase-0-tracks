@@ -16,17 +16,19 @@ print "Would you like to enroll in the company’s health insurance? (y/n)"
 insurance = gets.chomp
 insurance.downcase!
 
+=begin
+I reversed the orders of if/elsifs as a design decision, because it made no sense to me that, for example, a someone could come in with the name "drake cula" and not be detected as a vampire if they lied well enough.  I ordered the if statements so that obvious vampire signifiers would be tested before less obvious ones.
+=end 
 
-if (((age1 == age2)||(age1 == age3))&&((garlic == "y")|| (insurance == "y")))
-		print "Probably not a vampire"
-
-elsif (((age1 != age2)&&(age1 != age3))&&((garlic == "n")|| (insurance == "n")))&&(insurance != garlic)
-		print "Probably a vampire"
+if ((name == "drake cula") || (name == "tu fang"))
+		print "Definitely a vampire"
 elsif
 		((age1 != age2)&&(age1 != age3))&&((garlic == "n") && (insurance == "n"))
 		print "Almost certainly a vampire"
-elsif ((name == "drake cula") || (name == "tu fang"))
-		print "Definitely a vampire"
+elsif (((age1 != age2)&&(age1 != age3))&&((garlic == "n")|| (insurance == "n")))&&(insurance != garlic)
+		print "Probably a vampire"
+elsif (((age1 == age2)||(age1 == age3))&&((garlic == "y")|| (insurance == "y")))
+		print "Probably not a vampire"
 else
 		print "Results Inconclusive"
 end
