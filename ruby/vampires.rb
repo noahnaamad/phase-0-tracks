@@ -22,19 +22,19 @@ def interview
 		print "Would you like to enroll in the company’s health insurance? (y/n)"
 		insurance = gets.chomp
 		insurance.downcase!
-		print "Please enter all allergies. When you are finished, type 'done'"
-		allergy = gets.chomp
-		allergy.downcase!
+		allergy = "wedontknow"
 		isallergic = nil
-		while ((allergy != done) && (allergy != "sunshine")
+		until ((allergy = "done") || (allergy = "sunshine")) do
+			print "Please enter all allergies. When you are finished, type 'done'"
+			allergy = gets.chomp
+			allergy.downcase!
 			if allergy == "sunshine"
 				puts "#{name} is probably a vampire!!!"
 				isallergic = true
 			end
-			print "Please enter all allergies. When you are finished, type "done""
-			allergy = gets.chomp
-			allergy.downcase!
+			
 		end
+
 		next if (isallergic == true)
 =begin
 I reversed the orders of if/elsifs as a design decision, because it made no sense to me that, for example, a someone could come in with the name "drake cula" and not be detected as a vampire if they lied well enough.  I ordered the if statements so that obvious vampire signifiers would be tested before less obvious ones.
