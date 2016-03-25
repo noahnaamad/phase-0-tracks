@@ -24,7 +24,7 @@ def interview
 		insurance.downcase!
 		allergy = "wedontknow"
 		isallergic = nil
-		until ((allergy = "done") || (allergy = "sunshine")) do
+		until ((allergy == "done") || (allergy == "sunshine")) do
 			print "Please enter all allergies. When you are finished, type 'done'"
 			allergy = gets.chomp
 			allergy.downcase!
