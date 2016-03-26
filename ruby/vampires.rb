@@ -35,7 +35,6 @@ I reversed the orders of if/elsifs as a design decision, because it made no sens
 			puts "#{name} is almost certainly a vampire"
 			detectvamp = true
 			puts ""
-		else detectvamp = false
 		end
 
 		next if (detectvamp)
