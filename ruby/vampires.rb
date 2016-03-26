@@ -42,12 +42,14 @@ I reversed the orders of if/elsifs as a design decision, because it made no sens
 
 		allergy = "wedontknow"
 		until ((allergy == "done") || (allergy == "sunshine")) do
-			print "Please enter all allergies. When you are finished, type 'done'"
+			puts "Please enter all allergies. When you are finished, type 'done'"
 			allergy = gets.chomp
 			allergy.downcase!
-			if allergy == "sunshine"
-				puts "#{name} is probably a vampire!!!"
-				isallergic = true
+			if (allergy == "sunshine")
+				puts "#{name} is probably a vampire"
+				puts ""
+				detectvamp = true
+				next #why bother with asking about other allergies if we already have our answer
 			end
 			
 		end
@@ -56,10 +58,12 @@ I reversed the orders of if/elsifs as a design decision, because it made no sens
 
 		if (((age1 != age2)&&(age1 != age3))&&((garlic == "n") ^ (insurance == "n")))
 			puts "#{name} is probably a vampire"
+			puts ""
 		elsif (((age1 == age2)||(age1 == age3))&&((garlic == "y")|| (insurance == "y")))
 			puts "#{name} is probably not a vampire"
 		else
 			puts "Results Inconclusive"
+			puts ""
 		end
 
 	end
