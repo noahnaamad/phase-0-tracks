@@ -51,7 +51,6 @@ I reversed the orders of if/elsifs as a design decision, because it made no sens
 					puts "#{name} is probably a vampire"
 					puts ""
 					detectvamp = true
-					next #why bother with asking about other allergies if we already have our answer
 				end
 			
 			end
