@@ -16,8 +16,9 @@
 "Stop! You’re under arrest!".upcase
 # => "STOP! YOU’RE UNDER ARREST!"
 
-"the usual".concat(" suspects")
-"the usual" + " suspects"
+"z".getbyte(0)
+"the usual".concat(" suspects") #this... sort of works
+"the usual" + " suspects" #this also sort of works
 #=> "the usual suspects"
 
 #" suspects".<???>
@@ -32,7 +33,8 @@
 # "Elementary  ,    my   dear      Watson!".<???>""
 # => "Elementary, my dear Watson!"
 
-#"z".<???>
+"z".each_byte {|c| print c}
+"z".each_codepoint {|c| print c}
 # => 122 
 # (What is the significance of the number 122 in relation to the character z?)
 
