@@ -4,6 +4,11 @@ def buildArray(a,b,c)
  e << b
  e << c
 end
+
+def addItemArray (a, b)
+	a << b
+end
+
 x = []
 p x
 x << 1
