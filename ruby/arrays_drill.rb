@@ -6,7 +6,7 @@ def buildArray(a,b,c)
 end
 
 def addItemArray (a, b)
-	a << b
+ a << b
 end
 
 x = []
@@ -34,3 +34,7 @@ aa = z + x
 p aa
 
 buildArray(1,2,3)
+
+addItemArray([1, 2, "red", 9.0], "maroon")
+addItemArray([1, 2, "red", 9.0], ["maroon"])
+addItemArray(["we", "love", "ruby!!", "but", "documentation is tedious omg"], "jk it's fine")
