@@ -4,36 +4,58 @@
 # When there's more than one suspect who could have
 # committed the crime, add additional calls to prove it.
 
-# “iNvEsTiGaTiOn”.<???>
-# => “InVeStIgAtIoN”
+##TO DO: DISAPPEARING FIRST AND LAST LETTERS
 
-# “zom”.<???>
-# => “zoom”
+"iNvEsTiGaTiOn".swapcase
+"iNvEsTiGaTiOn".replace "InVeStIgAtIoN"
+# => "InVeStIgAtIoN"
 
-# “enhance”.<???>
-#=> “    enhance    ”
+"zom".sub('o', 'oo')
+"zom".replace "zoom"
+# => "zoom"
 
-# “Stop! You’re under arrest!”.<???>
-# => “STOP! YOU’RE UNDER ARREST!”
+"enhance".center(15, " ")
+"enhance".rjust(11, " ").ljust(15, " ")
+"enhance".replace "    enhance    " 
+#=> "    enhance    "
 
-# “the usual”.<???>
-#=> “the usual suspects”
+"Stop! You’re under arrest!".upcase
+"Stop! You’re under arrest!".replace "STOP! YOU’RE UNDER ARREST!"
+# => "STOP! YOU’RE UNDER ARREST!"
 
-#“ suspects”.<???>
-#=> “the usual suspects”
 
-# “The case of the disappearing last letter”.<???>
-# => “The case of the disappearing last lette”
+"the usual".concat(" suspects") 
+"the usual" + " suspects"
+"the usual".replace "the usual suspects"
+#=> "the usual suspects"
 
-# “The mystery of the missing first letter”.<???>
-# => “he mystery of the missing first letter”
+" suspects".insert(0, "the usual")
+" suspects".prepend("the usual")
+" suspects".replace "the usual suspects"
+#=> "the usual suspects"
 
-# “Elementary  ,    my   dear      Watson!”.<???>""
-# => “Elementary, my dear Watson!”
+"The case of the disappearing last letter".chop
+"The case of the disappearing last letter".replace "The case of the disappearing last lette"
+# => "The case of the disappearing last lette"
 
-#“z”.<???>
+"The mystery of the missing first letter".reverse.chop.reverse
+"The mystery of the missing first letter".replace "he mystery of the missing first letter"
+"The mystery of the missing first letter".delete "T"
+# => "he mystery of the missing first letter"
+
+"Elementary,    my   dear      Watson!".squeeze
+"Elementary,    my   dear      Watson!".replace "Elementary, my dear Watson!"
+# => "Elementary, my dear Watson!"
+#might be able to cut into pieces when there's a space, then concatenate the pieces with a single space in between them
+#can use split to turn into array wo spaces
+
+"z".getbyte(0)
+"z".ord
+"z".codepoints.join(",").to_i
+"z".each_byte {|c| print c} #this... sort of works
+"z".each_codepoint {|c| print c} #this also sort of works
 # => 122 
 # (What is the significance of the number 122 in relation to the character z?)
 
-#“How many times does the letter ‘a’ appear in this string?”.<???>
+"How many times does the letter ‘a’ appear in this string?".count "a"
 #=> 4
