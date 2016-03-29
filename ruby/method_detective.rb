@@ -34,12 +34,13 @@
 " suspects".replace "the usual suspects"
 #=> "the usual suspects"
 
-# "The case of the disappearing last letter".<???>
+"The case of the disappearing last letter".chop
 "The case of the disappearing last letter".replace "The case of the disappearing last lette"
 # => "The case of the disappearing last lette"
 
-# "The mystery of the missing first letter".<???>
+"The mystery of the missing first letter".reverse.chop.reverse
 "The mystery of the missing first letter".replace "he mystery of the missing first letter"
+"The mystery of the missing first letter".delete "T"
 # => "he mystery of the missing first letter"
 
 "Elementary,    my   dear      Watson!".squeeze
@@ -50,6 +51,7 @@
 
 "z".getbyte(0)
 "z".ord
+"z".codepoints.join(",").to_i
 "z".each_byte {|c| print c} #this... sort of works
 "z".each_codepoint {|c| print c} #this also sort of works
 # => 122 
