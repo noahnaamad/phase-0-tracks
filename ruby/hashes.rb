@@ -41,9 +41,36 @@ design_preferences[:themed_rooms] = theme
 p design_preferences
 
 #prompt user to tell me if they want to change a thing
-puts "Would you like to revise this data?"
+puts "What data would you like to revise?"
+revise_key = gets.chomp
 
-#if they change it, convert the string into a symbol
-#correct the symbol's value
+#if they change it, convert the value to correct class and update hash
+if revise_key == "none"
+	p design_preferences
+else
+	puts "What would you like to change that to?"
+	revise_value = gets.chomp
+	if revise_key == "name"
+		revise_value.capitalize!
+	elsif (revise_key == "child") || (revise_key == "toddler") || (revise_key == "age")
+		revise_value = revise_value.to_i
+	elsif revise_key == theme
+		revise_value.downcase!
+		if revise_value == "yes"
+			revise_value = true
+		else
+			revise_value = false
+		end	
+	end
+	revise_key = revise_key.to_sym
+	#correct the hash
+	design_preferences.delete(revise_key)
+	design_preferences[revise_key] = revise_value
+	p design_preferences
+end
 
-#print latest version of hash
+
+
+
+
+
