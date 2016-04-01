@@ -16,6 +16,8 @@ if child >= 1
 	puts "How many of those children are toddlers or younger?"
 	toddler = gets.chomp
 	toddler = toddler.to_i
+else
+	toddler = 0
 end
 puts "What decor theme do you like best?"
 decor = gets.chomp
