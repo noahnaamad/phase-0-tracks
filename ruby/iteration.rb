@@ -3,7 +3,7 @@ def new_method
   yield("Brittany", "Noah")
   puts "There you go!"
 end
-
+ 
 new_method { |name1, name2| puts "#{name1} and #{name2} say it's a beautiful day." }
 
 
