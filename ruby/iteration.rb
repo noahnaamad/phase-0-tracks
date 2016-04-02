@@ -6,24 +6,36 @@ end
 
 new_method { |name1, name2| puts "#{name1} and #{name2} say it's a beautiful day." }
 
-new_array = ["cupcake", "donut", "cake", "cookie", "brownie"]
-
 puts ""
 puts ""
 
+snacks = ["cupcake", "donut", "cake", "cookie", "brownie"]
+city_ratings = {california: "awesome", north_carolina: "awful", massachusetts: "medium", hawaii: "awesome" } #north carolina state government just passed an extremely anti-trans bill.  nothing against the average NC resident, just the government that represents them.
 
-city_ratings = {california: "awesome", north_carolina: "jerks", massachusetts: "medium", hawaii: "awesome" }
 
-puts "going through each"
-new_array.each do |snack|
+#iterate through the array multiple ways
+puts "original array"
+p snacks
+
+puts "going through each item in the array"
+snacks.each do |snack|
   puts "i want a " + "#{snack}" + " now!!"
 end
 
 puts "mapping now"
-new_array.map! do |snack|
+snacks.map! do |snack|
   "i want a " + "#{snack}" + " now!!"
 end
 
 puts "result of mapping"
 
-p new_array
+p snacks
+
+#iterate through the hash
+puts "the original hash"
+p city_ratings
+
+puts "iterating through each item"
+city_ratings.each do |city, rating|
+	puts "the state of " + "#{city.to_s}" + " is positively " + "#{rating}" + "." 
+end
