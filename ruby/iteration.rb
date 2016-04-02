@@ -85,3 +85,18 @@ p fibbs
 puts "the hash after keeping only super cheap clothing:"
 prices.select!{|name, price| price <= 10}
 p prices
+
+#remove items from structure until a certain condition is met
+puts "now let's remove items until a certain condition is met, after which all items are kept"
+fibbs = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144]
+prices = {shirt: 10, pants: 30, shoes: 40, socks: 5, jacket: 50}
+
+#the array
+puts "the array after deleting numbers before 13:"
+fibbs = fibbs.drop_while{|num| num < 13}
+p fibbs
+
+#the hash: sadly i couldn't find anything for this!
+#puts "the hash after deleting items before shoes:"
+#prices = prices.drop_while{|name, price| price == 40}
+#p prices
