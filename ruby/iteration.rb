@@ -45,12 +45,43 @@ puts "the original array and hash:"
 p fibbs = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144]
 p prices = {shirt: 10, pants: 30, shoes: 40, socks: 5, jacket: 50}
 
+puts "now let's delete items if they meet a certain condition"
 #iterate through the array, deleting any that meet certain condition
 puts "the array after deleting even numbers:"
 fibbs.delete_if{|num| num%2 == 0}
 p fibbs
 
 #iterate through the hash, deleting any that meet certain condition
-puts "the hash after deleting expensive clothing"
+puts "the hash after deleting expensive clothing:"
 prices.delete_if{|name, price| price > 45}
+p prices
+
+#iterate through the object, keeping any that meet certain condition
+puts "now let's keep items if they meet certain condtions (same original array and hash)"
+fibbs = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144]
+prices = {shirt: 10, pants: 30, shoes: 40, socks: 5, jacket: 50}
+
+#the array
+puts "the array after keeping only even numbers:"
+fibbs.keep_if{|num| num%2 == 0}
+p fibbs
+
+#the hash
+puts "the hash after keeping only expensive clothing:"
+prices.keep_if{|name, price| price > 45}
+p prices
+
+#iterate through the object, keeping any that meet certain condition: new method!
+puts "now let's keep items if they meet certain condtions using a DIFFERENT method (same original array and hash)"
+fibbs = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144]
+prices = {shirt: 10, pants: 30, shoes: 40, socks: 5, jacket: 50}
+
+#the array
+puts "the array after keeping only numbers greater than or equal to 7:"
+fibbs.select!{|num| num >= 7}
+p fibbs
+
+#the hash
+puts "the hash after keeping only super cheap clothing:"
+prices.select!{|name, price| price <= 10}
 p prices
