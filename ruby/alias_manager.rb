@@ -10,3 +10,7 @@ def to_alias(name)#take string
 #change consonant to next consonant
 #else keep it (in case it's a space or dash or whatever)
 end
+
+def string_stuff(noahnaamad)
+	puts "Hello"
+end
