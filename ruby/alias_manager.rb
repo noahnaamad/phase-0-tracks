@@ -61,5 +61,6 @@ until input == "quit"
 	end
 end
 
-p store_names
-
+store_names.each do |real_name, alias_name|
+	puts "#{real_name} is also known as #{alias_name}"
+end
