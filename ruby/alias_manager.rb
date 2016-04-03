@@ -6,8 +6,8 @@ def to_alias
 	new_alias.reverse! #now i have reversed the first and last name and put the name in an array
 	alias_string = new_alias.join('')
 	new_alias = alias_string.split('') #turns new_alias into an array of letters
-	puts new_alias
 
+	final_alias = ""
 	capital = false
 	#loop through the string
 	new_alias.each do |letter|
@@ -17,14 +17,22 @@ def to_alias
 		else
 			capital = false
 		letter.downcase!
-		#if vowel, call method to determine next vowel
+		
 		end
-	end
-
-	#change that vowel to next vowel (exclude y) and concatenate to alias string
-	#elsif consonant, call metho to determine next consonant
-	#change consonant to next consonant
-	#else keep it (in case it's a space or dash or whatever)
+		#if vowel, call method to determine next vowel
+		if "aeiou".include? letter
+		#change that vowel to next vowel (exclude y) and concatenate to alias string
+			encrypt_letter = letter.next_vowel
+			final_alias += encrypt_letter
+		#elsif consonant, call metho to determine next consonant
+		elsif "bcdfghjklmnpqrstvwxyz".include? letter
+		#change consonant to next consonant
+			encrypt_letter = letter.next_consonant
+			final_alias += encrypt_letter
+		#else keep it (in case it's a space or dash or whatever)
+		else
+			final_alias += letter
+		end
 end
 
 def next_vowel(letter)
