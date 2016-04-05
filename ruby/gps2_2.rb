@@ -67,3 +67,26 @@ remove_item(groceries_2, "lemonade")
 update_qty(groceries_2, "ice cream", 1)
 pretty(groceries_2)
 # Would be nice to add UI for looping through adding/removing/etc 
+
+
+=begin
+What did you learn about pseudocode from working on this challenge?
+ I learned to more thoroughly separate the programming language  from the algorithm.  I was using partial-code in my pseudocode, and I learned that that's bad practice.
+
+ What are the tradeoffs of using arrays and hashes for this challenge?
+ Arrays and hashes were useful for different aspects of this challenge.  Arrays were useful for manipulating strings, while a hash was useful for storing paired information.
+
+ What does a method return?
+ The method implicitly returns the last line of code in the method.
+
+What kind of things can you pass into methods as arguments?
+Anything pre-existing that the method can see, such as global variables, and anything you enter into the parameter field (like an integer of your choice.)
+
+How can you pass information between methods?
+You can use global variables to store information where both methods can see it.  You can also call a method from inside another method.  The second method called can see what's inside the first method.
+
+What concepts were solidified in this challenge, and what concepts are still confusing?
+This challenge solidified my understanding of the importance of making methods (and code i general) generalizable.
+I'm still confused about the difference between "p" and "puts", but that's something I can research on my own time.
+  
+=end
