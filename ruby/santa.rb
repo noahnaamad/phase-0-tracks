@@ -13,3 +13,10 @@ class Santa
 	end
 
 end
+
+#driver code
+Sant = Santa.new
+
+Sant.speak
+
+Sant.eat_milk_and_cookies("thin mint")
