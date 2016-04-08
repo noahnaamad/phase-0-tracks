@@ -26,6 +26,14 @@ class Santa
 		@reindeer_ranking << reindeer_name
 	end
 
+	def gender
+		@gender
+	end
+
+	def ethnicity
+		@ethnicity
+	end
+
 end
 
 #driver code
@@ -55,3 +63,5 @@ nick.celebrate_birthday
 p nick
 nick.get_mad_at("Dasher")
 p nick
+puts nick.gender
+puts nick.ethnicity
