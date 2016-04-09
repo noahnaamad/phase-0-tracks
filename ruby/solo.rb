@@ -65,3 +65,14 @@ for i in (1..num_shows)
 
 
 end
+
+p all_the_shows
+
+#driver code
+p all_the_shows[1]
+all_the_shows[1].fridge_gf("Abby")
+all_the_shows[1].rating = 4.3
+all_the_shows[0].new_season
+all_the_shows[0].air_show
+
+p all_the_shows
