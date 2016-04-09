@@ -13,7 +13,7 @@ class TV_shows
 	attr_reader :name, :genre
 	attr_accessor :seasons, :rating
  	
- 	initialize (name,  genre, seasons, rating, characters)
+ 	def initialize(name, genre, seasons, rating, characters)
  		@name = name
  		@genre = genre
  		@seasons = seasons
@@ -27,7 +27,7 @@ class TV_shows
 
  	def air_show
  		puts "And now, on HDTV, the next episode of #{@name}"
- 	and
+ 	end
 
  	def fridge_gf(character)
  		@characters.delete(character)
@@ -52,7 +52,8 @@ for i in (1..num_shows)
 	rating_thisshow = gets.chomp
 	rating_thisshow = rating_thisshow.to_f
 	characters_thisshow = []
-	until new_character != "done"
+	new_character = ""
+	while new_character != "done"
 		puts "Please enter the name of a main character.  When you have entered them all, write done"
 		new_character = gets.chomp
 		if new_character == "done"
