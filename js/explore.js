@@ -16,10 +16,12 @@ function reverse (word){
 	return reverse_word;
 }
 
-var a_reversed_string = reverse("what's up");
+var a_reversed_string = reverse("i'm learning javascript!!!");
 
 //driver code
-console.log(a_reversed_string)
+
+if("yay" == "yay"){
+console.log(a_reversed_string);
+}
 console.log(reverse("hello"));
 console.log(reverse("noah"));
-console.log(reverse("i'm learning javascript!!"));
