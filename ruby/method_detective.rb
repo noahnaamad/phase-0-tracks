@@ -4,8 +4,6 @@
 # When there's more than one suspect who could have
 # committed the crime, add additional calls to prove it.
 
-##TO DO: DISAPPEARING FIRST AND LAST LETTERS
-
 "iNvEsTiGaTiOn".swapcase
 "iNvEsTiGaTiOn".replace "InVeStIgAtIoN"
 # => "InVeStIgAtIoN"
