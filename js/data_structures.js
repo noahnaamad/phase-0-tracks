@@ -16,9 +16,8 @@ names.push("Olya");
 
 var count = colors.length;
 for (var i = 0; i < count;  i++) {
-  var this_horse = {[names[i]]: colors[i]};
-  horses[names[i]] = this_horse[names[i]]; 
-}
+  horses[names[i]] = colors[i];
+};
 console.log(horses);
 	
 
