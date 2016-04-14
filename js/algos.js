@@ -10,9 +10,6 @@ function lengthOfLongest(array, arrayLength){
 	return lengthOfLongestPhrase;
 };
 
-//driver code lengthOfLongest
-//console.log(lengthOfLongest(["123456", "12345678", "1234567890"]));
-
 function longPhrase(array){
 	var arrayLength = array.length;
 	var lengthiest = lengthOfLongest(array, arrayLength);
@@ -32,7 +29,12 @@ function longPhrase(array){
 
 }
 
+//write a function that takes two objects and checks to see if the objects share at least one key-value pair.
+
+
 //driver code longPhrase
-console.log(longPhrase(["1234", "12345678", "12345", "1"]));
-console.log(longPhrase(["long phrase","longest phrase","longer phrase"]));
-console.log(longPhrase(["yes", "now", "dog", "cat", "bee", "ah"]));
+// console.log(longPhrase(["1234", "12345678", "12345", "1"]));
+// console.log(longPhrase(["long phrase","longest phrase","longer phrase"]));
+// console.log(longPhrase(["yes", "now", "dog", "cat", "bee", "ah"]));
+//driver code lengthOfLongest
+//console.log(lengthOfLongest(["123456", "12345678", "1234567890"]));
