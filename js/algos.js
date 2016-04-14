@@ -1,10 +1,29 @@
-function lengthOfLongest(array){
-
+function lengthOfLongest(array, arrayLength){
+	var lengthOfLongestPhrase = 0;
+	for (i=0; i<arrayLength; i++){
+		var thisPhrase = array[i];
+		var lengthThisPhrase = thisPhrase.length;
+		if (lengthThisPhrase > lengthOfLongestPhrase){
+			lengthOfLongestPhrase = lengthThisPhrase;
+		};
+	};
+	return lengthOfLongestPhrase;
 };
 
+//driver code lengthOfLongest
+//console.log(lengthOfLongest(["123456", "12345678", "1234567890"]));
+
 function longPhrase(array){
-	array_length = array.length();
-	lengthOfLongest = 0;
-	indexOfLongest = [];
+	var arrayLength = array.length;
+	var lengthiest = lengthOfLongest(array, arrayLength);
+	for (i=0; i<arrayLength; i++){
+		thisLength = array[i].length;
+		if (thisLength == lengthiest){
+			return array[i];
+		};
+	};
 
 }
+
+//driver code longPhrase
+console.log(longPhrase(["1234", "12345678", "12345", "1"]));
