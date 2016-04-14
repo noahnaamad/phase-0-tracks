@@ -1,29 +1,35 @@
-# Virus Predictor
+#Virus Predictor
 
-# I worked on this challenge [by myself, with: ].
+# I worked on this challenge [With: Joel].
 # We spent [#] hours on this challenge.
 
 # EXPLANATION OF require_relative
-#
-#
-require_relative 'state_data'
+# require is for gems, and require_relative is for specific file
+#require_relative essentially copy/pastes everything from the other file into the top of the file, so the file you're on has access to all of the code in the relative file
+#require_relative 'state_data' 
 
 class VirusPredictor
 
+  
+# setting the value of each attribute
   def initialize(state_of_origin, population_density, population)
     @state = state_of_origin
     @population = population
     @population_density = population_density
   end
 
+  
+#runs the methods to predict deaths and the speed of disease spread
   def virus_effects
-    predicted_deaths(@population_density, @population, @state)
-    speed_of_spread(@population_density, @state)
+    predicted_deaths
+    speed_of_spread
   end
 
+# private means these methods are only available in the Class definition
   private
 
-  def predicted_deaths(population_density, population, state)
+# predicts deaths in a state given the population density and total population
+  def predicted_deaths
     # predicted deaths is solely based on population density
     if @population_density >= 200
       number_of_deaths = (@population * 0.4).floor
@@ -41,7 +47,8 @@ class VirusPredictor
 
   end
 
-  def speed_of_spread(population_density, state) #in months
+ # preicts how fast the disease will spread in a state given its population density 
+  def speed_of_spread #in months
     # We are still perfecting our formula here. The speed is also affected
     # by additional factors we haven't added into this functionality.
     speed = 0.0
@@ -65,23 +72,11 @@ class VirusPredictor
 end
 
 #=======================================================================
+#def initialize(state_of_origin, population_density, population)
+STATE_DATA.each do |state, data|
+  population_density = data[:population_density]
+  population = data[:population]
+  this_state = VirusPredictor.new(state, population_density, population)
+  this_state.virus_effects
+end
 
-# DRIVER CODE
- # initialize VirusPredictor for each state
-
-
-alabama = VirusPredictor.new("Alabama", STATE_DATA["Alabama"][:population_density], STATE_DATA["Alabama"][:population])
-alabama.virus_effects
-
-jersey = VirusPredictor.new("New Jersey", STATE_DATA["New Jersey"][:population_density], STATE_DATA["New Jersey"][:population])
-jersey.virus_effects
-
-california = VirusPredictor.new("California", STATE_DATA["California"][:population_density], STATE_DATA["California"][:population])
-california.virus_effects
-
-alaska = VirusPredictor.new("Alaska", STATE_DATA["Alaska"][:population_density], STATE_DATA["Alaska"][:population])
-alaska.virus_effects
-
-
-#=======================================================================
-# Reflection Section
