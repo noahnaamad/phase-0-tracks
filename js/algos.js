@@ -16,14 +16,23 @@ function lengthOfLongest(array, arrayLength){
 function longPhrase(array){
 	var arrayLength = array.length;
 	var lengthiest = lengthOfLongest(array, arrayLength);
+	longestPhrases = [];
 	for (i=0; i<arrayLength; i++){
 		thisLength = array[i].length;
 		if (thisLength == lengthiest){
-			return array[i];
+			longestPhrases.push(array[i]);
 		};
 	};
+	if (longestPhrases.length == 1){
+		return longestPhrases[0];
+	}
+	else{
+	return longestPhrases;
+	}
 
 }
 
 //driver code longPhrase
 console.log(longPhrase(["1234", "12345678", "12345", "1"]));
+console.log(longPhrase(["long phrase","longest phrase","longer phrase"]));
+console.log(longPhrase(["yes", "now", "dog", "cat", "bee", "ah"]));
