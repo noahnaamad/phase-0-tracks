@@ -87,10 +87,12 @@ function randomStrings(num){
 
 
 //driver code for longPhrase and randomStrings TOGETHER
-for (j=0; j<10; j++){
+for (j=1; j<11; j++){
 	var lengthofArray = Math.floor(Math.random()*10 + 1);
-	x = longPhrase(randomStrings(lengthofArray));
-	console.log(x);
+	x = randomStrings(lengthofArray);
+	console.log(j + ": the array created is: [" + x  + "]");
+	y = longPhrase(x);
+	console.log("The longest word(s) in that array is/are: " + y);
 };
 
 
