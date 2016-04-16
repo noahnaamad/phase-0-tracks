@@ -62,17 +62,33 @@ function share(obj1, obj2){
 //1) create for loop that will loop the array's length times
 //2) during each loop, 
 //		2.1) compute random length 1-10
+//			2.1.0) create empty string
 //		2.2) create a for loop that will loop that random number.  during each loop:
-//			2.2.0) create empty string
-//			2.2.1) create random number 0-25
-//			2.2.2) to the string, concatenate item from array of letters
+//			2.2.0) create random number 0-25
+//			2.2.1) to the string, concatenate item from array of letters
 //		2.3) push the string to the array
 //3) return the array
 
 function randomStrings(num){
-	var theStrings = []
-	var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-}
+	var theStrings = [];
+	var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+	for(i=1; i>num; i++){
+		var theWord = "";
+		var lengthOfWord = Math.floor(Math.random()*10 + 1);
+		for (i=1; i>lengthOfWord; i++){
+			var letterIndex = Math.floor(Math.random()*26);
+			var theLetter = letters[letterIndex];
+			console.log(theLetter);
+			theWord = theWord + theLetter;
+			console.log(theWord);
+		};
+	theStrings.push(theWord);
+	};
+	return theStrings;
+};
+
+//driver code randomStrings
+console.log(randomStrings(5));
 
 //driver code longPhrase
 // console.log(longPhrase(["1234", "12345678", "12345", "1"]));
