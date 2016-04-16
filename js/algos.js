@@ -70,13 +70,17 @@ function share(obj1, obj2){
 //3) return the array
 
 function randomStrings(num){
+	//WORKS: console.log(Math.floor(Math.random()*26));
 	var theStrings = [];
 	var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-	for(i=1; i>num; i++){
+	for(i=0; i<num; i++){
+		console.log("HIIIIIIIII");
 		var theWord = "";
 		var lengthOfWord = Math.floor(Math.random()*10 + 1);
-		for (i=1; i>lengthOfWord; i++){
+		console.log(lengthOfWord);
+		for (i=1; i<lengthOfWord; i++){
 			var letterIndex = Math.floor(Math.random()*26);
+			console.log(letterIndex);
 			var theLetter = letters[letterIndex];
 			console.log(theLetter);
 			theWord = theWord + theLetter;
