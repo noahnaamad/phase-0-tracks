@@ -47,7 +47,6 @@ function share(obj1, obj2){
 				if (obj2.hasOwnProperty(key2)){
 					if ((key1 == key2) && (obj1[key1] == obj2[key2])){
 						theyshare = true;
-						//console.log(obj[key1]);
 					};
 				};
 			};
@@ -57,10 +56,23 @@ function share(obj1, obj2){
 	return theyshare;
 };
 
-//driver code share
-console.log(share({name: "Steven", age: 54, gender: "agender"}, {name: "Tamir", age: 54, gender: "genderqueer", height: 68}));
-console.log(share({name: "Steven", age: 30, gender:"bigender"}, {name: "Tamir", age: 98, height: 67}));
+//Write a function that takes an integer for length, and builds and returns an array of strings of the given length.
+// PSEUDOCODE
+//0) create empty array, and array of all the letters
+//1) create for loop that will loop the array's length times
+//2) during each loop, 
+//		2.1) compute random length 1-10
+//		2.2) create a for loop that will loop that random number.  during each loop:
+//			2.2.0) create empty string
+//			2.2.1) create random number 0-25
+//			2.2.2) to the string, concatenate item from array of letters
+//		2.3) push the string to the array
+//3) return the array
 
+function randomStrings(num){
+	var theStrings = []
+	var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+}
 
 //driver code longPhrase
 // console.log(longPhrase(["1234", "12345678", "12345", "1"]));
@@ -69,3 +81,7 @@ console.log(share({name: "Steven", age: 30, gender:"bigender"}, {name: "Tamir", 
 
 //driver code lengthOfLongest
 //console.log(lengthOfLongest(["123456", "12345678", "1234567890"]));
+
+//driver code share
+// console.log(share({name: "Steven", age: 54, gender: "agender"}, {name: "Tamir", age: 54, gender: "genderqueer", height: 68}));
+// console.log(share({name: "Steven", age: 30, gender:"bigender"}, {name: "Tamir", age: 98, height: 67}));
