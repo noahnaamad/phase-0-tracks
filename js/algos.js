@@ -70,29 +70,21 @@ function share(obj1, obj2){
 //3) return the array
 
 function randomStrings(num){
-	//WORKS: console.log(Math.floor(Math.random()*26));
 	var theStrings = [];
 	var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 	for(i=0; i<num; i++){
-		console.log("HIIIIIIIII");
 		var theWord = "";
 		var lengthOfWord = Math.floor(Math.random()*10 + 1);
-		console.log(lengthOfWord);
-		for (i=1; i<lengthOfWord; i++){
+		for (x=0; x<lengthOfWord; x++){
 			var letterIndex = Math.floor(Math.random()*26);
-			console.log(letterIndex);
 			var theLetter = letters[letterIndex];
-			console.log(theLetter);
 			theWord = theWord + theLetter;
-			console.log(theWord);
 		};
-	theStrings.push(theWord);
+		theStrings.push(theWord);
 	};
 	return theStrings;
 };
 
-//driver code randomStrings
-console.log(randomStrings(5));
 
 //driver code longPhrase
 // console.log(longPhrase(["1234", "12345678", "12345", "1"]));
@@ -105,3 +97,6 @@ console.log(randomStrings(5));
 //driver code share
 // console.log(share({name: "Steven", age: 54, gender: "agender"}, {name: "Tamir", age: 54, gender: "genderqueer", height: 68}));
 // console.log(share({name: "Steven", age: 30, gender:"bigender"}, {name: "Tamir", age: 98, height: 67}));
+
+//driver code randomStrings
+//console.log(randomStrings(10));
