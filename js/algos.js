@@ -86,6 +86,14 @@ function randomStrings(num){
 };
 
 
+//driver code for longPhrase and randomStrings TOGETHER
+for (j=0; j<10; j++){
+	var lengthofArray = Math.floor(Math.random()*10 + 1);
+	x = longPhrase(randomStrings(lengthofArray));
+	console.log(x);
+};
+
+
 //driver code longPhrase
 // console.log(longPhrase(["1234", "12345678", "12345", "1"]));
 // console.log(longPhrase(["long phrase","longest phrase","longer phrase"]));
