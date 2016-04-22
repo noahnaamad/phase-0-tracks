@@ -1,0 +1,43 @@
+RELEASE 2
+
+sqlite> SELECT * FROM
+   ...> reviews
+   ...> INNER JOIN businesses ON reviews.business_id = businesses.id
+   ...> 
+   ...> INNER JOIN users ON reviews.user_id = users.id
+   ...> ;
+id|stars|comment|business_id|user_id|name|id|first_name|last_name|id
+1|3|Too spicy|1|1|Minnie_World|1|Jason|Bourne|1
+2|5|Nice employees|2|2|Scrapers|2|Prince|Nelson|2
+3|2|Rude employees|3|3|Long_Times|3|Michale|Jackson|3
+4|4|Sarah was kind|1|2|Minnie_World|1|Prince|Nelson|2
+5|5|Awesome Food, so spicy|1|3|Minnie_World|1|Michale|Jackson|3
+
+
+sqlite> SELECT users.first_name, users.last_name, businesses.name, reviews.stars, reviews.comment FROM
+   ...> reviews
+   ...> INNER JOIN businesses ON reviews.business_id = businesses.id
+   ...> INNER JOIN users ON reviews.user_id = users.id
+   ...> ;
+first_name|last_name|name|stars|comment
+Jason|Bourne|Minnie_World|3|Too spicy
+Prince|Nelson|Scrapers|5|Nice employees
+Michale|Jackson|Long_Times|2|Rude employees
+Prince|Nelson|Minnie_World|4|Sarah was kind
+Michale|Jackson|Minnie_World|5|Awesome Food, so spicy
+
+
+sqlite> SELECT * FROM
+   ...> reviews
+   ...> INNER JOIN businesses ON reviews.business_id = businesses.id
+   ...> INNER JOIN users ON reviews.user_id = users.id
+   ...> WHERE businesses.id = 1
+   ...> ;
+id|stars|comment|business_id|user_id|name|id|first_name|last_name|id
+1|3|Too spicy|1|1|Minnie_World|1|Jason|Bourne|1
+4|4|Sarah was kind|1|2|Minnie_World|1|Prince|Nelson|2
+5|5|Awesome Food, so spicy|1|3|Minnie_World|1|Michale|Jackson|3
+
+
+
+
