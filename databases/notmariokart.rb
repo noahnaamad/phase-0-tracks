@@ -66,13 +66,23 @@ def time_update(db, driver_id, time_spent)
 	
 end
 
-#create hash of drivers and their total time
-driver_times = <<-SQL
-	SELECT drivers.name, drivers.curr_time FROM drivers
-SQL
-x = db.execute(driver_times)
-puts x
+#figure out who's in first, second, and third, and award points
+#hash = {a: 1, b: 2, c: 54, d: 12, e: 34, f: 109, g: 2}
+#x = hash.sort_by{|key, value| -value}.to_h
+#puts x
 
+#x = db.execute("SELECT name FROM drivers WHERE drivers.id = 1")
+#p x
+driver_times = {}
+for i in 1..8 do
+	name = db.execute("SELECT name FROM drivers WHERE drivers.id = #{i}")
+	name = name[0][0]
+	time_total = db.execute("SELECT curr_time FROM drivers WHERE drivers.id = #{i}")
+	time_total = time_total[0][0]
+	driver_times[name] = time_total
+end
+driver_times = driver_times.sort_by{|key, value| value}.to_h
+p driver_times
 =begin
 #driver code create and populate table - but only once!!
 the_drivers = db.execute("SELECT * FROM drivers")
