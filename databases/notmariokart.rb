@@ -2,7 +2,7 @@ require 'sqlite3'
 require 'faker'
 
 #create database
-db = SQLite3::Database.new("kittens.db")
+db = SQLite3::Database.new("racegame.db")
 db.results_as_hash = true
 
 create_table_cmd = <<-SQL
