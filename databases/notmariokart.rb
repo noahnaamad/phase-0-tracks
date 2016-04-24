@@ -54,7 +54,7 @@ def time_driving(name, guess)
 	elsif guess == 7 - right_guess
 		time_spent = 7
 	else
-		time_spent = 4
+		time_spent = rand(4) + 2
 	end
 
 	if name == "you"
@@ -83,8 +83,10 @@ def the_winners(db)
 		driver_times[their_id] = time_total
 	end
 	driver_times = driver_times.sort_by{|key, value| value}.to_h
-	player_time = driver_times["you"]
+	player_time = driver_times[8]
 	puts "Your total time is #{player_time}"
+
+	#I NEED TO FIND A WAY TO HANDLE TIES
 
 	fastest_drivers = driver_times.keys
 	driver0 = fastest_drivers[0]
@@ -95,7 +97,7 @@ def the_winners(db)
 	db.execute("UPDATE drivers SET points = points + 30 WHERE drivers.id = #{driver0}")
 	db.execute("UPDATE drivers SET points = points + 22 WHERE drivers.id = #{driver1}")
 	db.execute("UPDATE drivers SET points = points + 12 WHERE drivers.id = #{driver2}")
-	db.execute("UPDATE drivers SET curr_time=0")
+	#db.execute("UPDATE drivers SET curr_time=0")
 end
 
 #find the character ID given their name
@@ -113,9 +115,6 @@ puts "Hello!  Today we're going to play a racing game.  There are 5 sections of 
 	puts "Guess an integer from 1 to 6"
 	guess = gets.chomp
 	guess = guess.to_i
-
-	p guess
-	p guess.class
 
 	time_driv = time_driving("you", guess)
 	time_update(db, 8, time_driv)
@@ -137,10 +136,21 @@ for i in 1..8 do
 	their_id = their_id[0][0]
 	points = db.execute("SELECT points FROM drivers WHERE drivers.id = #{i}")
 	points = points[0][0]
-	driver_times[their_id] = points
+	driver_points[their_id] = points
 end
-driver_points = driver_points.sort_by{|key, value| value}.to_h
-p driver_points
+
+driver_points = driver_points.sort_by{|key, value| -value}.to_h
+
+#Report the status
+driver_points.each do |driver,  their_points|
+	driver_name = db.execute("SELECT name FROM drivers WHERE id = #{driver}")
+	driver_name = driver_name[0][0]
+	if driver_name == "you"
+		puts "#{driver_name} have #{their_points} points!"
+	else
+		puts "#{driver_name} has #{their_points} points!"
+	end
+end
 
 =begin
 #driver code create and populate table - but only once!!
