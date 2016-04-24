@@ -67,23 +67,36 @@ def time_update(db, driver_id, time_spent)
 end
 
 #figure out who's in first, second, and third, and award points
-#hash = {a: 1, b: 2, c: 54, d: 12, e: 34, f: 109, g: 2}
-#x = hash.sort_by{|key, value| -value}.to_h
-#puts x
+def the_winners(db)
+	driver_times = {}
+	for i in 1..8 do
+		their_id = db.execute("SELECT id FROM drivers WHERE drivers.id = #{i}")
+		their_id = their_id[0][0]
+		time_total = db.execute("SELECT curr_time FROM drivers WHERE drivers.id = #{i}")
+		time_total = time_total[0][0]
+		driver_times[their_id] = time_total
+	end
+	driver_times = driver_times.sort_by{|key, value| value}.to_h
 
-#x = db.execute("SELECT name FROM drivers WHERE drivers.id = 1")
-#p x
-driver_times = {}
-for i in 1..8 do
-	name = db.execute("SELECT name FROM drivers WHERE drivers.id = #{i}")
-	name = name[0][0]
-	time_total = db.execute("SELECT curr_time FROM drivers WHERE drivers.id = #{i}")
-	time_total = time_total[0][0]
-	driver_times[name] = time_total
+	fastest_drivers = driver_times.keys
+	driver0 = fastest_drivers[0]
+	driver1 = fastest_drivers[1]
+	driver2 = fastest_drivers[2]
+
+
+	db.execute("UPDATE drivers SET points = points + 30 WHERE drivers.id = #{driver0}")
+	db.execute("UPDATE drivers SET points = points + 22 WHERE drivers.id = #{driver1}")
+	db.execute("UPDATE drivers SET points = points + 12 WHERE drivers.id = #{driver2}")
 end
-driver_times = driver_times.sort_by{|key, value| value}.to_h
-p driver_times
+
+______________________________________________________________
+#The user interface begins!
+
+puts "Hello!  Today we're going to play a racing game.  There are 5 sections of the race, and the first 3 to complete all 5 sections are awarded points.  You can drive the race as many times as you'd like!  How many times would you like to race?"
+times_racing = gets.chomp.to_i
+
 =begin
+UPDATE drivers SET curr_time=0
 #driver code create and populate table - but only once!!
 the_drivers = db.execute("SELECT * FROM drivers")
 puts "exists is #{exists}"
