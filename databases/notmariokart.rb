@@ -1,5 +1,4 @@
 require 'sqlite3'
-#require 'faker'
 
 #create database
 db = SQLite3::Database.new("drivers.db")
@@ -44,17 +43,24 @@ the_drivers = db.execute("SELECT * FROM drivers")
 #calculate the time it took the driver to complete this part of the course
 #they guess the roll of a die -- if their guess faces up they go fast, if their guess faces down they go slow, otherwise they go medium.
 
-def time_driving(guess)
+def time_driving(name, guess)
 	time_spent = 0
 	right_guess = rand(6) + 1
-	if guess == right_guess
+	if (guess > 6 || guess < 1)
+		puts "That's not from 1 to 6! Penalty!"
+		time_spent = 9
+	elsif guess == right_guess
 		time_spent = 1
 	elsif guess == 7 - right_guess
-		time_spent = 5
+		time_spent = 7
 	else
-		time_spent = 3
+		time_spent = 4
 	end
-	puts "right guess was #{right_guess} and time spent is #{time_spent}"
+
+	if name == "you"
+		puts "The right guess was #{right_guess}, and the time you spent driving this section is #{time_spent}"
+	end
+	time_spent
 end
 
 #add the time it took to complete that part of the course to the total time spent driving
@@ -67,22 +73,75 @@ def time_update(db, driver_id, time_spent)
 end
 
 #figure out who's in first, second, and third, and award points
-#hash = {a: 1, b: 2, c: 54, d: 12, e: 34, f: 109, g: 2}
-#x = hash.sort_by{|key, value| -value}.to_h
-#puts x
+def the_winners(db)
+	driver_times = {}
+	for i in 1..8 do
+		their_id = db.execute("SELECT id FROM drivers WHERE drivers.id = #{i}")
+		their_id = their_id[0][0]
+		time_total = db.execute("SELECT curr_time FROM drivers WHERE drivers.id = #{i}")
+		time_total = time_total[0][0]
+		driver_times[their_id] = time_total
+	end
+	driver_times = driver_times.sort_by{|key, value| value}.to_h
+	player_time = driver_times["you"]
+	puts "Your total time is #{player_time}"
 
-#x = db.execute("SELECT name FROM drivers WHERE drivers.id = 1")
-#p x
-driver_times = {}
-for i in 1..8 do
-	name = db.execute("SELECT name FROM drivers WHERE drivers.id = #{i}")
-	name = name[0][0]
-	time_total = db.execute("SELECT curr_time FROM drivers WHERE drivers.id = #{i}")
-	time_total = time_total[0][0]
-	driver_times[name] = time_total
+	fastest_drivers = driver_times.keys
+	driver0 = fastest_drivers[0]
+	driver1 = fastest_drivers[1]
+	driver2 = fastest_drivers[2]
+
+
+	db.execute("UPDATE drivers SET points = points + 30 WHERE drivers.id = #{driver0}")
+	db.execute("UPDATE drivers SET points = points + 22 WHERE drivers.id = #{driver1}")
+	db.execute("UPDATE drivers SET points = points + 12 WHERE drivers.id = #{driver2}")
+	db.execute("UPDATE drivers SET curr_time=0")
 end
-driver_times = driver_times.sort_by{|key, value| value}.to_h
-p driver_times
+
+#find the character ID given their name
+def char_id_find(db, the_name)
+	x = db.execute("SELECT id FROM drivers WHERE name = '#{the_name}'")
+	x[0][0]
+end
+
+#######################################################
+#The user interface begins!
+
+puts "Hello!  Today we're going to play a racing game.  There are 5 sections of the race, and the first 3 to complete all 5 sections are awarded points.  Alright let's get started!"
+
+5.times do
+	puts "Guess an integer from 1 to 6"
+	guess = gets.chomp
+	guess = guess.to_i
+
+	p guess
+	p guess.class
+
+	time_driv = time_driving("you", guess)
+	time_update(db, 8, time_driv)
+
+	characters.each do |character|
+		if character != "you"
+			time_driv = time_driving(character, 1)
+			the_id = char_id_find(db, character)
+			time_update(db, the_id, time_driv)
+		end
+	end
+end
+
+the_winners(db)
+
+driver_points = {}
+for i in 1..8 do
+	their_id = db.execute("SELECT id FROM drivers WHERE drivers.id = #{i}")
+	their_id = their_id[0][0]
+	points = db.execute("SELECT points FROM drivers WHERE drivers.id = #{i}")
+	points = points[0][0]
+	driver_times[their_id] = points
+end
+driver_points = driver_points.sort_by{|key, value| value}.to_h
+p driver_points
+
 =begin
 #driver code create and populate table - but only once!!
 the_drivers = db.execute("SELECT * FROM drivers")
@@ -107,19 +166,7 @@ time_update(db, 3, 1)
 time_update(db, 5, 3)
 puts the_drivers
 
-
-20.times do 
-	create_kitten(db, Faker::Name.name, 0)
-end
-
-
-
-kittens = db.execute("SELECT * FROM kittens")
-puts kittens
-
-kittens.each do |kit|
-	kit["age"] = (kit["age"] + 1)
-end 
-
-puts kittens
+#driver code char_id_find
+p char_id_find(db, "toad")
+puts char_id_find(db, "yoshi")
 =end
