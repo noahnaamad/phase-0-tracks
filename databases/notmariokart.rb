@@ -2,7 +2,6 @@ require 'sqlite3'
 
 #create database
 db = SQLite3::Database.new("drivers.db")
-#db.results_as_hash = true
 
 create_table_cmd = <<-SQL
 	CREATE TABLE IF NOT EXISTS drivers(
@@ -71,7 +70,7 @@ end
 
 #takes hash of names and times, gives us fastest time and those who drove that time in fastest drivers
 def fastest_ones(curr_time)
-	fastest_time = 0
+	fastest_time = 45
 	fastest_drivers = []
 
 	curr_time.each do |key, value|
@@ -91,10 +90,6 @@ def the_winners(db, curr_time)
 	player_time = curr_time["you"]
 	puts "-------------------------------------"
 	puts "Your total time for the race is #{player_time}"
-
-	#set up a few variables for awarding points
-	num_first_places = 0
-	num_second_places = 0
 
 	#Handle ties:
 	#Find which drivers are the fastest
@@ -128,7 +123,7 @@ def the_winners(db, curr_time)
 		num_third_places = third_fastest_drivers.length
 
 		for l in 1..num_third_places
-			driver = fastest_drivers[l - 1]
+			driver = third_fastest_drivers[l - 1]
 			db.execute("UPDATE drivers SET points = points + 12 WHERE name = '#{driver}'")
 		end
 	end
@@ -156,8 +151,6 @@ puts "Hello!  Today we're going to play a racing game.  There are 5 sections of 
 	end
 end
 
-p curr_time
-
 the_winners(db, curr_time)
 
 #Report the status to the console\
@@ -173,27 +166,6 @@ characters.each do |character|
 	end
 end
 
-#i dont think we need this??
-=begin
-for i in 1..8 do
-	their_info = db.execute("SELECT name, points FROM drivers WHERE drivers.id = #{i}")
-	#their_id = their_id[0][0]
-	#driver_points[their_id] = points
-end
-
-driver_points = driver_points.sort_by{|key, value| -value}.to_h
-
-#Report the status
-driver_points.each do |driver,  their_points|
-	driver_name = db.execute("SELECT name FROM drivers WHERE id = #{driver}")
-	driver_name = driver_name[0][0]
-	if driver_name == "you"
-		puts "#{driver_name} have #{their_points} points!"
-	else
-		puts "#{driver_name} has #{their_points} points!"
-	end
-end
-=end
 
 =begin
 #driver code create and populate table - but only once!!
