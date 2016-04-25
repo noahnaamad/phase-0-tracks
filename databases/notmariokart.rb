@@ -1,6 +1,3 @@
-#TO DO
-#REFACTOR ON LINE 137
-
 require 'sqlite3'
 
 #create database
@@ -28,14 +25,14 @@ exists = db.execute(already_existed)
 #actually populate database
 characters = ["bowser", "toad", "peach", "yoshi", "mario", "wario", "luigi", "you"]
 
+def create_driver(db, their_name)
+	db.execute("INSERT INTO drivers (name, points) VALUES (?, 0)", [their_name])
+end
+
 if exists == [[0]]
 	characters.each do |driver|
 		create_driver(db, driver)
 	end
-end
-
-def create_driver(db, their_name)
-	db.execute("INSERT INTO drivers (name, points) VALUES (?, 0)", [their_name])
 end
 
 #create hash to store current time spent driving, add the time it took to complete that part of the course to the total time spent driving
@@ -43,7 +40,6 @@ curr_time = {}
 characters.each do |character|
 	curr_time[character] = 0
 end
-
 
 #now that the database and the local hash are initiated, some methods that are put to work during the game:
 
@@ -69,67 +65,73 @@ def time_driving(name, guess)
 	time_spent
 end
 
-def time_update(driver, time_spent)
-	curr_time[driver] = curr_time[driver] + time_spent
+def time_update(driver_name, time_spent, curr_time)
+	curr_time[driver_name] = curr_time[driver_name] + time_spent
+end
+
+#takes hash of names and times, gives us fastest time and those who drove that time in fastest drivers
+def fastest_ones(curr_time)
+	fastest_time = 0
+	fastest_drivers = []
+
+	curr_time.each do |key, value|
+		if -value < fastest_time
+			fastest_time = -value
+			fastest_drivers = [key]
+		elsif -value == fastest_time
+			fastest_drivers += key
+		end
+	end
+	fastest_drivers
 end
 
 #figure out who's in first, second, and third, and award points.
-def the_winners(db)
-	#set up a few variables
-	player_time = 0
-	fastest_drivers = []
-	fastest_times = []
-	num_first_places = 0
-	num_second_places = 0
-
-	#sort the hash by who drove fastest
-	curr_time = curr_time.sort_by{|key, value| value}.to_h
-	
+def the_winners(db, curr_time)
 	#tell the player the length of their drive
 	player_time = curr_time["you"]
 	puts "Your total time for the race is #{player_time}"
 
+	#set up a few variables for awarding points
+	num_first_places = 0
+	num_second_places = 0
+	second_fastest_drivers
+
 	#Handle ties:
-	#Find all players who had the shortest time
-	fastest_drivers = curr_time.keys
-	fastest_times = curr_time.values
-	num_first_places = fastest_times.count{|x| x == (fastest_times[0])}
+	#Find which drivers are the fastest
+	fastest_drivers = fastest_ones(curr_time)
+
+	#Find number of players who had the shortest time
+	num_first_places = fastest_drivers.length
 
 	#Add 30 points to everyone who had the fastest time
 	for j in 1..num_first_places
 		driver = fastest_drivers[j - 1]
 		db.execute("UPDATE drivers SET points = points + 30 WHERE name = '#{driver}'")
+		curr_time.delete(driver)
 	end
 	
-	#if there are fewer than 3 in first place, give everyone who had the second shortest time 22 points
+	#if there are fewer than 3 in first place, give everyone who had the second shortest time 22 points.  first, find out which drivers had second place times:
 	if num_first_places < 3
-		fastest_times = fastest_times.drop(num_first_places)
-		fastest_drivers = fastest_drivers.drop(num_first_places)
-		num_second_places = fastest_times.count{|x| x == (fastest_times[0])}
+		second_fastest_drivers = fastest_ones(curr_time)
+		num_second_places = second_fastest_drivers.length
 
 		for k in 1..num_second_places
-			driver = fastest_drivers[k -1]
+			driver = second_fastest_drivers[k -1]
 			db.execute("UPDATE drivers SET points = points + 22 WHERE name = '#{driver}'")
+			curr_time.delete(driver)
 		end
 	end
 
 	#if there are fewer than 3 in first and second place combined, give everyone who had the third shortest time 22 points
 	if (num_first_places + num_second_places) < 3
-		fastest_times = fastest_times.drop(num_second_places)
-		fastest_drivers = fastest_drivers.drop(num_second_places)
-		num_third_places = fastest_times.count{|x| x == (fastest_times[0])}
+		third_fastest_drivers = fastest_ones(curr_time)
+		num_third_places = third_fastest_drivers.length
 
 		for l in 1..num_third_places
 			driver = fastest_drivers[l - 1]
 			db.execute("UPDATE drivers SET points = points + 12 WHERE name = '#{driver}'")
 		end
 	end
-end
-
-#find the character ID given their name
-def char_id_find(db, the_name)
-	x = db.execute("SELECT id FROM drivers WHERE name = '#{the_name}'")
-	x[0][0]
 end
 
 #######################################################
@@ -143,21 +145,31 @@ puts "Hello!  Today we're going to play a racing game.  There are 5 sections of 
 	guess = guess.to_i
 
 	time_driv = time_driving("you", guess)
-	time_update(db, 8, time_driv)
+	time_update("you", time_driv, curr_time)
 
+	#All the other characters just guess 1 every time because why not
 	characters.each do |character|
 		if character != "you"
 			time_driv = time_driving(character, 1)
-			the_id = char_id_find(db, character)
-			time_update(db, the_id, time_driv)
+			time_update(character, time_driv, curr_time)
 		end
 	end
 end
 
-the_winners(db)
+the_winners(db, curr_time)
 
-driver_points = {}
-#refactor so it gives names!!!
+#Report the status to the console
+characters.each do |character|
+	their_points = db.execute("SELECT points FROM drivers WHERE name = '#{character}'")
+	if character == "you"
+		puts "#{character} have #{their_points} points!"
+	else
+		puts "#{character} has #{their_points} points!"
+	end
+end
+
+#i dont think we need this??
+=begin
 for i in 1..8 do
 	their_info = db.execute("SELECT name, points FROM drivers WHERE drivers.id = #{i}")
 	#their_id = their_id[0][0]
@@ -176,6 +188,7 @@ driver_points.each do |driver,  their_points|
 		puts "#{driver_name} has #{their_points} points!"
 	end
 end
+=end
 
 =begin
 #driver code create and populate table - but only once!!
