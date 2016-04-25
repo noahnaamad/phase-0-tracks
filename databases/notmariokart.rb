@@ -75,11 +75,11 @@ def fastest_ones(curr_time)
 	fastest_drivers = []
 
 	curr_time.each do |key, value|
-		if -value < fastest_time
-			fastest_time = -value
+		if value < fastest_time
+			fastest_time = value
 			fastest_drivers = [key]
-		elsif -value == fastest_time
-			fastest_drivers += key
+		elsif value == fastest_time
+			fastest_drivers << key
 		end
 	end
 	fastest_drivers
@@ -89,12 +89,12 @@ end
 def the_winners(db, curr_time)
 	#tell the player the length of their drive
 	player_time = curr_time["you"]
+	puts "-------------------------------------"
 	puts "Your total time for the race is #{player_time}"
 
 	#set up a few variables for awarding points
 	num_first_places = 0
 	num_second_places = 0
-	second_fastest_drivers
 
 	#Handle ties:
 	#Find which drivers are the fastest
@@ -156,11 +156,16 @@ puts "Hello!  Today we're going to play a racing game.  There are 5 sections of 
 	end
 end
 
+p curr_time
+
 the_winners(db, curr_time)
 
-#Report the status to the console
+#Report the status to the console\
+puts "-------------------------------------"
+puts "This race is over"
 characters.each do |character|
 	their_points = db.execute("SELECT points FROM drivers WHERE name = '#{character}'")
+	their_points = their_points[0][0]
 	if character == "you"
 		puts "#{character} have #{their_points} points!"
 	else
