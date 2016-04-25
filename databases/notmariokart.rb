@@ -1,3 +1,6 @@
+#TO DO
+#REFACTOR ON LINE 137
+
 require 'sqlite3'
 
 #create database
@@ -8,7 +11,6 @@ create_table_cmd = <<-SQL
 	CREATE TABLE IF NOT EXISTS drivers(
 		id INTEGER PRIMARY KEY,
 		name VARCHAR(255),
-		curr_time INT,
 		points INT
 	)
 SQL
@@ -26,23 +28,27 @@ exists = db.execute(already_existed)
 #actually populate database
 characters = ["bowser", "toad", "peach", "yoshi", "mario", "wario", "luigi", "you"]
 
-
-def create_driver(db, their_name)
-	db.execute("INSERT INTO drivers (name, curr_time, points) VALUES (?, 0, 0)", [their_name])
-end
-
 if exists == [[0]]
 	characters.each do |driver|
 		create_driver(db, driver)
 	end
 end
 
-#make the drivers more acccessible
-the_drivers = db.execute("SELECT * FROM drivers")
+def create_driver(db, their_name)
+	db.execute("INSERT INTO drivers (name, points) VALUES (?, 0)", [their_name])
+end
+
+#create hash to store current time spent driving, add the time it took to complete that part of the course to the total time spent driving
+curr_time = {}
+characters.each do |character|
+	curr_time[character] = 0
+end
+
+
+#now that the database and the local hash are initiated, some methods that are put to work during the game:
 
 #calculate the time it took the driver to complete this part of the course
 #they guess the roll of a die -- if their guess faces up they go fast, if their guess faces down they go slow, otherwise they go medium.
-
 def time_driving(name, guess)
 	time_spent = 0
 	right_guess = rand(6) + 1
@@ -63,41 +69,61 @@ def time_driving(name, guess)
 	time_spent
 end
 
-#add the time it took to complete that part of the course to the total time spent driving
-
-def time_update(db, driver_id, time_spent)
-	drivers = db.execute("SELECT * FROM drivers")
-	add_time = "UPDATE drivers SET curr_time = curr_time + #{time_spent} WHERE drivers.id = #{driver_id}"
-	db.execute(add_time)
-	
+def time_update(driver, time_spent)
+	curr_time[driver] = curr_time[driver] + time_spent
 end
 
-#figure out who's in first, second, and third, and award points
+#figure out who's in first, second, and third, and award points.
 def the_winners(db)
-	driver_times = {}
-	for i in 1..8 do
-		their_id = db.execute("SELECT id FROM drivers WHERE drivers.id = #{i}")
-		their_id = their_id[0][0]
-		time_total = db.execute("SELECT curr_time FROM drivers WHERE drivers.id = #{i}")
-		time_total = time_total[0][0]
-		driver_times[their_id] = time_total
+	#set up a few variables
+	player_time = 0
+	fastest_drivers = []
+	fastest_times = []
+	num_first_places = 0
+	num_second_places = 0
+
+	#sort the hash by who drove fastest
+	curr_time = curr_time.sort_by{|key, value| value}.to_h
+	
+	#tell the player the length of their drive
+	player_time = curr_time["you"]
+	puts "Your total time for the race is #{player_time}"
+
+	#Handle ties:
+	#Find all players who had the shortest time
+	fastest_drivers = curr_time.keys
+	fastest_times = curr_time.values
+	num_first_places = fastest_times.count{|x| x == (fastest_times[0])}
+
+	#Add 30 points to everyone who had the fastest time
+	for j in 1..num_first_places
+		driver = fastest_drivers[j - 1]
+		db.execute("UPDATE drivers SET points = points + 30 WHERE name = '#{driver}'")
 	end
-	driver_times = driver_times.sort_by{|key, value| value}.to_h
-	player_time = driver_times[8]
-	puts "Your total time is #{player_time}"
+	
+	#if there are fewer than 3 in first place, give everyone who had the second shortest time 22 points
+	if num_first_places < 3
+		fastest_times = fastest_times.drop(num_first_places)
+		fastest_drivers = fastest_drivers.drop(num_first_places)
+		num_second_places = fastest_times.count{|x| x == (fastest_times[0])}
 
-	#I NEED TO FIND A WAY TO HANDLE TIES
+		for k in 1..num_second_places
+			driver = fastest_drivers[k -1]
+			db.execute("UPDATE drivers SET points = points + 22 WHERE name = '#{driver}'")
+		end
+	end
 
-	fastest_drivers = driver_times.keys
-	driver0 = fastest_drivers[0]
-	driver1 = fastest_drivers[1]
-	driver2 = fastest_drivers[2]
+	#if there are fewer than 3 in first and second place combined, give everyone who had the third shortest time 22 points
+	if (num_first_places + num_second_places) < 3
+		fastest_times = fastest_times.drop(num_second_places)
+		fastest_drivers = fastest_drivers.drop(num_second_places)
+		num_third_places = fastest_times.count{|x| x == (fastest_times[0])}
 
-
-	db.execute("UPDATE drivers SET points = points + 30 WHERE drivers.id = #{driver0}")
-	db.execute("UPDATE drivers SET points = points + 22 WHERE drivers.id = #{driver1}")
-	db.execute("UPDATE drivers SET points = points + 12 WHERE drivers.id = #{driver2}")
-	#db.execute("UPDATE drivers SET curr_time=0")
+		for l in 1..num_third_places
+			driver = fastest_drivers[l - 1]
+			db.execute("UPDATE drivers SET points = points + 12 WHERE name = '#{driver}'")
+		end
+	end
 end
 
 #find the character ID given their name
@@ -109,7 +135,7 @@ end
 #######################################################
 #The user interface begins!
 
-puts "Hello!  Today we're going to play a racing game.  There are 5 sections of the race, and the first 3 to complete all 5 sections are awarded points.  Alright let's get started!"
+puts "Hello!  Today we're going to play a racing game.  There are 5 sections of the race, and the first 3 drivers to complete all 5 sections are awarded points.  Alright let's get started!"
 
 5.times do
 	puts "Guess an integer from 1 to 6"
@@ -131,12 +157,11 @@ end
 the_winners(db)
 
 driver_points = {}
+#refactor so it gives names!!!
 for i in 1..8 do
-	their_id = db.execute("SELECT id FROM drivers WHERE drivers.id = #{i}")
-	their_id = their_id[0][0]
-	points = db.execute("SELECT points FROM drivers WHERE drivers.id = #{i}")
-	points = points[0][0]
-	driver_points[their_id] = points
+	their_info = db.execute("SELECT name, points FROM drivers WHERE drivers.id = #{i}")
+	#their_id = their_id[0][0]
+	#driver_points[their_id] = points
 end
 
 driver_points = driver_points.sort_by{|key, value| -value}.to_h
