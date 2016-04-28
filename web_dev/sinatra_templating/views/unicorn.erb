@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Unicorns!!</title>
+</head>
+<body>
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/82/DomenichinounicornPalFarnese.jpg">
+<ul>
+    <% @students.each do |student| %> 
+    <% if student['age'].to_i == 21 %>
+      <li><%= student['name'] %>, <%= student['age'] %> is a UNICORN</li>
+      <% end %>
+    <% end %>
+  </ul>
+</body>
+</html>
