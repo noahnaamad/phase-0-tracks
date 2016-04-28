@@ -17,6 +17,11 @@ get '/students/new' do
   erb :new_student
 end
 
+get '/unicorn' do
+  @students = db.execute("SELECT * FROM students")
+  erb :unicorn
+end
+
 # create new students via
 # a form
 post '/students' do
@@ -24,4 +29,3 @@ post '/students' do
   redirect '/'
 end
 
-# add static resources
